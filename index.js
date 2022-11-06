@@ -1,11 +1,13 @@
 document.querySelector("body").style.color = "red";
+document.querySelector("input").onkeydown = checkKey;
+
 const input = document.querySelector("input");
 const log = document.getElementById("values");
 var encryptedArr = [];
 var i = 0;
 input.addEventListener("input", updateValue);
 function updateValue(e) {
-  if (e.target.value.length <= 6) {
+  if (e.target.value.length <= 6 && e.which !== 8) {
     encryptedArr.push(e.target.value.charCodeAt(i));
 
     i += 1;
@@ -33,6 +35,11 @@ function updateValue(e) {
     btn.removeAttribute("disabled");
     log.textContent = "Greater than 6";
   }
+}
+// disable backspace
+function checkKey(e) {
+  e = e || event;
+  return !([8, 46].indexOf(e.which || e.keyCode || e.charCode) > -1);
 }
 
 // SIMPLE JS Function
